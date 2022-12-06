@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOGS" value="./logs"/>
+    <property name="CONSOLE_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss} %highlight(%-5level) %magenta(${PID:- }) --- [%15.15t] [%-12X{traceID}] %cyan(%logger{39}).%M \\(%line\\) : %msg%n"/>
+
+    <property name="FILE_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss} %-5level ${PID:- } --- [%15.15t] [%-12X{traceID}] %logger{39}.%M \\(%line\\) : %msg%n"/>
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${CONSOLE_PATTERN}</pattern>
+        </layout>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/api.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>${FILE_PATTERN}</Pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS}/archived/%d{yyyy-MM-dd}/api-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="GELF" class="de.siegmar.logbackgelf.GelfTcpAppender">
+        <graylogHost>10.90.27.90</graylogHost>
+        <graylogPort>1514</graylogPort>
+    </appender>
+
+    <appender name="ASYNC_GELF" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="GELF"/>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="ASYNC_GELF"/>
+    </root>
+
+    <logger name="org.springframework.web">
+        <level value="INFO"/>
+    </logger>
+</configuration>
