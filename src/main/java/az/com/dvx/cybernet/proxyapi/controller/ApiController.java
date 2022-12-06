@@ -14,10 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 @OpenAPIDefinition(
     servers= {
-        @Server(url="http://localhost:9091"),
-        @Server(url="http://10.120.98.1:9091"),
-        @Server(url="http://10.120.98.2:9091")
-    }, info = @Info(title = "ProxyAPI-Admin", contact = @Contact(url = "http://cybernet.az", name = "Cəlal Muxtar", email = "celaleddin.muxtarov@cybernet.az"))
+        @Server(url="http://localhost:9091")
+    }, info = @Info(title = "AES and RSA Encryption", contact = @Contact(url = "http://cybernet.az", name = "Cəlal Muxtar", email = "celaleddin.muxtarov@cybernet.az"))
 )
 @RequestMapping("/v1/api/integ/proxyapi-admin")
 public class ApiController {
