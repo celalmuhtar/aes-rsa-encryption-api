@@ -23,3 +23,6 @@ Daxil edilən şifrəli məlumatı daxil edilən aes key ilə açır.
 6. GET
 /v1/api/integ/proxyapi-admin/decryptingWithRsaKey
 RSA ilə şifrələnmiş məlumatı RSA privat key daxil edərək decrip edir
+
+
+![Screenshot from 2022-12-06 16-59-05.png](img%2FScreenshot%20from%202022-12-06%2016-59-05.png)
